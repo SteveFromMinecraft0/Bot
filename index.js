@@ -5,11 +5,13 @@ const token = process.env.key;
 
 const PREFIX = '!';
 
-var website_link = 'http://www.example.com/index.html';
-var schedule_link = 'https://www.robotevents.com/';
-var forum_link = 'https://www.vexforum.com/';
+const website_link = 'http://www.example.com/index.html';
+const schedule_link = 'https://www.robotevents.com/';
+const forum_link = 'https://www.vexforum.com/';
+const vexcode_api_link = 'https://help.vexcodingstudio.com/';
+const pros_api_link = 'https://pros.cs.purdue.edu/v5/api/index.html';
 
-var numAwards = 1;
+var numAwards = 2;
 
 var current_code = 'Im not working';
 
@@ -54,6 +56,24 @@ bot.on('message', message=>{
         .setColor(0x5DADE2)
         .setThumbnail('https://media.discordapp.net/attachments/523639230367531012/664526023320404018/Robotiger.png')
         message.channel.sendEmbed(embed);}
+        break;
+    case '!vexcode':
+        if(!args[1]) return message.reply('Error please define second argument')
+        if(args[1] === 'api')
+        message.channel.send(vexcode_api_link);
+        break;
+    
+    case '!pros':
+        if(!args[1]) return message.reply('Error please define second argument')
+        if(args[1] === 'api')
+        const prosEmbed = new Discord.RichEmbed()
+            .setTitle('Pros')
+            .addField('Link', pros_api_link)
+            .setDescription('A power tool for programming. Intermediate level.')
+            .setColor(0x5DADE2)
+            .setThumbnail('pros-icon.png')
+            message.channel.sendEmbed(prosEmbed);}
+
         break;
     }
 
