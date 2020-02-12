@@ -1,0 +1,97 @@
+
+
+#include "vex.h"
+
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                     
+// ---- END VEXCODE CONFIGURED DEVICES ----
+
+using namespace vex;
+
+// A global instance of vex::brain used for printing to the V5 brain screen
+vex::brain       Brain;
+vex::timer       braintimer;
+// define your global instances "declarations" of motors and other devices here
+vex::controller Controller1 = vex::controller();
+vex::motor FLW = vex::motor( vex::PORT1 );
+vex::motor FRW = vex::motor( vex::PORT10, true);
+vex::motor BRW = vex::motor( vex::PORT11 );
+vex::motor BLW = vex::motor( vex::PORT20 , true);
+vex::motor Tray  = vex::motor( vex::PORT7 );
+vex::motor LeftIntake  = vex::motor( vex::PORT4);
+vex::motor RightIntake  = vex::motor( vex::PORT8 );
+vex::motor barLift = vex::motor( vex::PORT13 );
+
+int main (){
+
+ int GNRL = 70; //GNRL = General Speed
+ double Wheel = 0.5;
+ int tray = 42;
+ int bar = 50;
+ 
+   while(true){
+FRW.setVelocity(Wheel, vex::velocityUnits::pct);
+BRW.setVelocity(Wheel, vex::velocityUnits::pct);
+FLW.setVelocity(Wheel, vex::velocityUnits::pct);
+BLW.setVelocity(Wheel, vex::velocityUnits::pct);
+
+FLW.spin(directionType::fwd, Controller1.Axis3.value() * Wheel, velocityUnits::pct);
+FRW.spin(directionType::fwd, Controller1.Axis2.value() * Wheel, velocityUnits::pct);
+BRW.spin(directionType::fwd, Controller1.Axis3.value() * Wheel, velocityUnits::pct);
+BLW.spin(directionType::fwd, Controller1.Axis2.value() * Wheel, velocityUnits::pct);
+
+if (Controller1.ButtonL1.pressing()){
+ 
+RightIntake.spin(vex::directionType::fwd, GNRL, vex::velocityUnits::pct);
+LeftIntake.spin(vex::directionType::rev, GNRL, vex::velocityUnits::pct);
+vex::task::sleep(25);
+}
+       else if (Controller1.ButtonR1.pressing()){
+         
+           RightIntake.spin(vex::directionType::rev, GNRL, vex::velocityUnits::pct);
+           LeftIntake.spin(vex::directionType::fwd, GNRL, vex::velocityUnits::pct);
+           vex::task::sleep(25);
+       }
+           else {
+        RightIntake.stop(vex::brakeType::hold);  
+         LeftIntake.stop(vex::brakeType::hold);
+         }
+
+           if (Controller1.ButtonL2.pressing()){
+           Tray.spin(vex::directionType::rev, tray, vex::velocityUnits::pct);
+           
+           vex::task::sleep(25);
+          
+       }
+       else if (Controller1.ButtonR2.pressing()){
+           Tray.spin(vex::directionType::fwd, tray, vex::velocityUnits::pct);
+           vex::task::sleep(25);
+       }
+           else {
+       Tray.stop(vex::brakeType::hold);
+       vex::task::sleep(25);
+       }
+       if (Controller1.ButtonDown.pressing()){
+          barLift.spin(vex::directionType::fwd, bar, vex::velocityUnits::pct);
+           vex::task::sleep(25);
+          
+       }
+       else if (Controller1.ButtonUp.pressing()){
+           barLift.spin(vex::directionType::rev, bar, vex::velocityUnits::pct);
+           vex::task::sleep(25);
+       }
+       else {
+       barLift.stop(vex::brakeType::hold);
+    
+       vex::task::sleep(25);
+       }
+      
+}
+      return 0;
+ 
+   }
+  
+ 
+
