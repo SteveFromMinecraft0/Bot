@@ -5,11 +5,11 @@ const token = process.env.key;
 
 const PREFIX = '!';
 
-const website_link = 'http://www.example.com/index.html';
-const schedule_link = 'https://www.robotevents.com/';
-const forum_link = 'https://www.vexforum.com/';
-const vexcode_api_link = 'https://help.vexcodingstudio.com/';
-const pros_api_link = 'https://pros.cs.purdue.edu/v5/api/index.html';
+var website_link = 'http://www.example.com/index.html';
+var schedule_link = 'https://www.robotevents.com/';
+var forum_link = 'https://www.vexforum.com/';
+var vexcode_api_link = 'https://help.vexcodingstudio.com/';
+var pros_api_link = 'https://pros.cs.purdue.edu/v5/api/index.html';
 
 var numAwards = 2;
 
